@@ -27,7 +27,7 @@ tags:
     description: "Find out more about the user"
     url: "http://www.hgar-srv3.bu.edu"
 schemes:
-- "http"
+- "https"
 paths:
   /subject:
     post:
@@ -56,10 +56,27 @@ paths:
         in: "query"
         description: "Subject id to delete"
         required: true
-        type: "integer"
-        format: "int64"
+        type: "string"
       responses:
         400:
           description: "Invalid ID supplied"
         404:
           description: "Subject not found"
+  /user:
+    get:
+      tags:
+      - "user"
+      summary: "display all the saved subjects for a logged in used"
+      description: "the user will be able to get all the saved material in display in the portlet"
+      operationId: "displayContent"
+      parameters:
+      - name: "userID"
+        in: "query"
+        type: "string"
+        required: true
+        description: "the user's identification in the database"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User doesn't exist"
