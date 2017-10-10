@@ -1,0 +1,65 @@
+swagger: "2.0"
+info:
+  description: "This is a sample API for DigitialReserve portlet"
+  version: "1.0.0"
+  title: "Digital Reserve"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "hgarc@bu.edu"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: localhost:8080
+basePath: "/"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+tags:
+- name: "subject"
+  description: "All subject operations"
+  externalDocs:
+    description: "Find out more"
+    url: "http://www.hgar-srv3.bu.edu"
+- name: "user"
+  description: "all user operations"
+  externalDocs:
+    description: "Find out more about the user"
+    url: "http://www.hgar-srv3.bu.edu"
+schemes:
+- "http"
+paths:
+  /subject:
+    post:
+      tags:
+      - "subject"
+      summary: "Add a new subject to the portlet"
+      description: "adds a subject to the list in the portlet"
+      operationId: "addSubject"
+      parameters:
+      - name: "subjectURL"
+        in: "query"
+        type: "string"
+        description: "Subject/Item object that will be added in the store"
+        required: true
+      responses:
+        405:
+          description: "Something went wrong"
+    delete:
+      tags:
+      - "subject"
+      summary: "Deletes a subject"
+      description: ""
+      operationId: "deleteSubject"
+      parameters:
+      - name: "subjectID"
+        in: "query"
+        description: "Subject id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Subject not found"
