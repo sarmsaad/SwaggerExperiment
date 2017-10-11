@@ -37,7 +37,7 @@ paths:
       description: "adds a subject to the list in the portlet"
       operationId: "addSubject"
       parameters:
-      - name: "subjectURL"
+      - name: "subjectID"
         in: "query"
         type: "string"
         description: "Subject/Item object that will be added in the store"
