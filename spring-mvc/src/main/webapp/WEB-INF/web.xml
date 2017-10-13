@@ -7,21 +7,21 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
   <!-- sample servlet -->
   <servlet>
-        <servlet-name>S-experiment</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <init-param>
-            <param-name>sub-context</param-name>
-            <param-value>service</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+      <servlet-name>dispatcher</servlet-name>
+      <servlet-class>
+           org.springframework.web.servlet.DispatcherServlet
+ 	    </servlet-class>
+ 	    <init-param>
+ 	         <param-name>contextConfigLocation</param-name>
+ 	         <param-value>/WEB-INF/todo-servlet.xml</param-value>
+ 	    </init-param>
+ 	    <load-on-startup>1</load-on-startup>
+  </servlet>
 
   <servlet-mapping>
-      <servlet-name>dispatcher-example</servlet-name>
-      <url-pattern>/</url-pattern>
-  </servlet-mapping>
+ 	    <servlet-name>dispatcher</servlet-name>
+ 	    <url-pattern>/spring-mvc/*</url-pattern>
+ 	</servlet-mapping>
 
 <!-- HERE IS CODE I COPIED FROM https://github.com/swagger-api/swagger-samples/blob/master/java/java-servlet/src/main/webapp/WEB-INF/web.xml-->
 <!-- swagger servlet reader -->
