@@ -27,7 +27,7 @@ tags:
     description: "Find out more about the user"
     url: "http://www.hgar-srv3.bu.edu"
 schemes:
-- "https"
+- "http"
 paths:
   /subject:
     post:

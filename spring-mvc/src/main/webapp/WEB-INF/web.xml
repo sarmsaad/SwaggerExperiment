@@ -1,0 +1,65 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID"
+         version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <!-- sample servlet -->
+  <servlet>
+        <servlet-name>S-experiment</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>sub-context</param-name>
+            <param-value>service</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+  <servlet-mapping>
+      <servlet-name>dispatcher-example</servlet-name>
+      <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+<!-- HERE IS CODE I COPIED FROM https://github.com/swagger-api/swagger-samples/blob/master/java/java-servlet/src/main/webapp/WEB-INF/web.xml-->
+<!-- swagger servlet reader -->
+  <servlet>
+      <servlet-name>DefaultServletConfig</servlet-name>
+      <servlet-class>io.swagger.servlet.config.DefaultServletConfig</servlet-class>
+      <init-param>
+          <param-name>swagger.resource.package</param-name>
+          <param-value>io.swagger.sample.servlet</param-value>
+      </init-param>
+      <init-param>
+          <param-name>swagger.api.basepath</param-name>
+          <param-value>http://localhost:8002</param-value>
+      </init-param>
+      <init-param>
+          <param-name>api.version</param-name>
+          <param-value>1.0.0</param-value>
+      </init-param>
+      <load-on-startup>2</load-on-startup>
+  </servlet>
+
+<!-- swagger api declaration -->
+  <servlet>
+      <servlet-name>ApiDeclarationServlet</servlet-name>
+      <servlet-class>io.swagger.servlet.listing.ApiDeclarationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>ApiDeclarationServlet</servlet-name>
+      <url-pattern>/api/*</url-pattern>
+  </servlet-mapping>
+
+  <filter>
+      <filter-name>ApiOriginFilter</filter-name>
+      <filter-class>io.swagger.sample.util.ApiOriginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>ApiOriginFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+<!-- END COPIED CODE -->
+</web-app>
