@@ -24,33 +24,61 @@ import javax.validation.Valid;
 public class SubjectApiController implements SubjectApi {
     private final ObjectMapper objectMapper;
 
+    int size = 10;
+    int currentlast = 0;
+    Subject[] Subjects = new Subject[size];
+
     public SubjectApiController(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
+    public int getPosition(int id){
+      for(int i = 0; i < 10; i++){
+        if(id.equals(Subjects[i].ID)){
+          return i;
+        }
+      }
+      return -1;
+    }
+
     public ResponseEntity<Void> addItemInSubject(@ApiParam(value = "item's identification",required=true ) @PathVariable("itemID") String itemID,
-         @NotNull@ApiParam(value = "subject's ID", required = true) @Valid @RequestParam(value = "subjectID", required = true) String subjectID,
-        @RequestHeader(value = "Accept", required = false) String accept) throws Exception {
-        // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
+    @NotNull@ApiParam(value = "subject's ID", required = true) @Valid @RequestParam(value = "subjectID", required = true) String subjectID,
+    @RequestHeader(value = "Accept", required = false) String accept) throws Exception {
+      int pos = getPosition(subjectID);
+      if(pos != -1){
+        Subjects[pos].addItem(itemID);
+      }
+      return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     public ResponseEntity<Void> addSubject( @NotNull@ApiParam(value = "Subject/Item object that will be added in the store", required = true) @Valid @RequestParam(value = "subjectURL", required = true) String subjectURL,
         @RequestHeader(value = "Accept", required = false) String accept) throws Exception {
-        // do some magic!
+        if(getPosition(subjectID) == -1){
+          Subjects[currentlast].ID = subjectURL;
+          currentlast++;
+        }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     public ResponseEntity<Void> deleteItemInSubject(@ApiParam(value = "item's identification",required=true ) @PathVariable("itemID") String itemID,
          @NotNull@ApiParam(value = "subject's ID", required = true) @Valid @RequestParam(value = "subjectID", required = true) String subjectID,
         @RequestHeader(value = "Accept", required = false) String accept) throws Exception {
-        // do some magic!
+          int pos = getPosition(subjectID);
+          if(pos != -1){
+            Subjects[pos].deleteItem(itemID);
+          }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     public ResponseEntity<Void> deleteSubject( @NotNull@ApiParam(value = "Subject id to delete", required = true) @Valid @RequestParam(value = "subjectID", required = true) String subjectID,
         @RequestHeader(value = "Accept", required = false) String accept) throws Exception {
-        // do some magic!
+          int pos = getPosition(subjectID);
+          if(pos != -1){
+            for(int i = pos; i < currentlast-1; i++){
+              Subjects[i] = Subjects[i+1];
+            }
+            currentlast--;
+          }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
